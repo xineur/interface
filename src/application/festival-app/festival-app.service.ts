@@ -5,8 +5,6 @@ import { FestivalDomainService } from "src/domain/festival-domain/festival-domai
 export class FestivalAppService {
   constructor(private festivalDomainService: FestivalDomainService) { }
 
-
-
   get week() {
     return this.festivalDomainService.week
   }

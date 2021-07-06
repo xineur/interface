@@ -5,10 +5,11 @@ import { ApplicationModule } from './application/application.module';
 import { LogService } from './core/log/log.service';
 import { DomainModule } from './domain/domain.module';
 import { FestivalInfrastructureModel } from './infrastructure/festival-infrastructure/festival-infrastructure.module';
+import { WeatherInfrastructureModule } from './infrastructure/weather-infrastructure/weather-infrastructure.module';
 import { RouterModule } from './router/router.module';
 
 @Module({
-  imports: [FestivalInfrastructureModel, DomainModule, ApplicationModule, RouterModule],
+  imports: [FestivalInfrastructureModel, DomainModule, ApplicationModule, RouterModule, WeatherInfrastructureModule],
   controllers: [AppController],
   providers: [AppService, LogService],
 })

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios, { AxiosResponse } from "axios";
-import dayjs from "dayjs";
+import * as dayjs from "dayjs";
 
 export interface IFestivalRequest {
   code: 0 | -1
