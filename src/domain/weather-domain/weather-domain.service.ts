@@ -8,11 +8,11 @@ export class WeatherDomainService {
   constructor(
     private weatherInfrastructureService: WeatherInfrastructureService
   ) { }
-  async getForecast(city: number): Promise<IWeatherRequest["forecast"]> {
-    return await this.weatherInfrastructureService.getWeather(city, 'base') as IWeatherRequest["forecast"]
+  async getForecast(city: number): Promise<IWeatherRequest["forecasts"]> {
+    return await this.weatherInfrastructureService.getWeather(city, 'all') as IWeatherRequest["forecasts"]
   }
 
   async getLives(city: number): Promise<IWeatherRequest["lives"]> {
-    return await this.weatherInfrastructureService.getWeather(city, 'all') as IWeatherRequest["lives"]
+    return await this.weatherInfrastructureService.getWeather(city, 'base') as IWeatherRequest["lives"]
   }
 }

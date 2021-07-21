@@ -25,7 +25,7 @@ export interface IWeatherRequest {
     humidity: string // 空气湿度
     reporttime: string // 数据发布的时间
   }[]
-  forecast?: { // 预报天气信息数据
+  forecasts?: { // 预报天气信息数据
     city: string // 城市名称
     adcode: number // 城市编码
     province: string // 省份名称
@@ -42,14 +42,14 @@ export interface IWeatherRequest {
       daypower: string // 白天风力
       nightpower: string // 晚上风力
     }[]
-  }
+  }[]
 }
 
 @Injectable()
 export class WeatherInfrastructureService {
   constructor() {
   }
-  async getWeather(city: number, extensions: IWeatherParam['extensions'] = "all"): Promise<IWeatherRequest['forecast'] | IWeatherRequest['lives']> {
+  async getWeather(city: number, extensions: IWeatherParam['extensions'] = "all"): Promise<IWeatherRequest['forecasts'] | IWeatherRequest['lives']> {
     const { gdamap } = await getConfig()
     return axios.get("https://restapi.amap.com/v3/weather/weatherInfo", {
       params: {
@@ -59,8 +59,11 @@ export class WeatherInfrastructureService {
         output: 'JSON'
       } as IWeatherParam
     }).then((res: AxiosResponse<IWeatherRequest>) => {
-      const { forecast, lives } = res.data
-      return forecast || lives
+      const { count, forecasts, lives, status, info } = res.data
+      return forecasts || lives
+    }).catch(err => {
+      console.log(err)
+      return Promise.reject(err)
     })
   }
 }

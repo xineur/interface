@@ -8,10 +8,15 @@ export { IFestival } from "src/infrastructure/festival-infrastructure/festival-i
 export class FestivalDomainService {
   private festivalInfo: IFestival
   constructor(private festivalService: FestivalInfrastructureService) {
-    regularly(this.getFestival(new Date()), [0, 0, 0, 0])
+    if (!this.festivalInfo) {
+      this.getFestival(new Date())
+    } else {
+      regularly(() => this.getFestival(new Date()), [0, 1, 0, 0])
+    }
   }
   private async getFestival(date: Date) {
     this.festivalInfo = await this.festivalService.getFestival(date)
+    console.log(this.festivalInfo)
   }
 
   get festival() {
@@ -22,7 +27,11 @@ export class FestivalDomainService {
     return this.festivalInfo.weekName
   }
 
-  get type() {
+  get typeName() {
     return this.festivalInfo.typeName
+  }
+
+  get type() {
+    return this.festivalInfo.type
   }
 }

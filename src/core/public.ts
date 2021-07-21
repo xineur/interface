@@ -11,11 +11,13 @@ let config: any
  * @param timing 
  */
 export async function regularly(callBack: any, timing: [number, number, number, number]) {
-  callBack()
-  let nextTime = 0
-  nextTime = new Date().setHours(...timing) + 24 * 60 * 60 * 1000
-  await sleep(nextTime - new Date().getTime())
-  regularly(callBack, timing)
+  while (true) {
+    let nextTime = 0
+    if (new Date().setHours(...timing) >= new Date().getTime()) nextTime = new Date().setHours(...timing) - new Date().getTime()
+    else nextTime = new Date().setHours(...timing) + 24 * 60 * 60 * 1000
+    await sleep(nextTime - new Date().getTime())
+    callBack()
+  }
 }
 
 /**
@@ -39,6 +41,9 @@ export function sleep(time: number): Promise<void> {
  */
 export async function getConfig() {
   if (config) return config
-  config = await readFilePromise(join(__dirname, "../config/config.json"))
+  config = await readFilePromise(join(__dirname, "../../config/config.json"), {
+    encoding: 'utf-8'
+  })
+  config = JSON.parse(config)
   return config
 }

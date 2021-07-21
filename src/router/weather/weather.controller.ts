@@ -9,8 +9,8 @@ export class WeatherController {
   ) { }
 
   @Get()
-  async getForecast(@Req() request: Request): Promise<IWeatherRequest["forecast"]> {
-    return await this.weatherDomainService.getForecast(request.query.city as any) as IWeatherRequest["forecast"]
+  async getForecast(@Req() request: Request): Promise<IWeatherRequest["forecasts"]> {
+    return await this.weatherDomainService.getForecast(request.query.city as any) as IWeatherRequest["forecasts"]
   }
 
   @Get()
