@@ -11,9 +11,9 @@ let config: any
  * @param timing 
  */
 export async function regularly(callBack: any, timing: [number, number, number, number]) {
+  let nextTime = 0
   while (true) {
-    let nextTime = 0
-    if (new Date().setHours(...timing) >= new Date().getTime()) nextTime = new Date().setHours(...timing) - new Date().getTime()
+    if (new Date().setHours(...timing) > new Date().getTime()) nextTime = new Date().setHours(...timing)
     else nextTime = new Date().setHours(...timing) + 24 * 60 * 60 * 1000
     await sleep(nextTime - new Date().getTime())
     callBack()

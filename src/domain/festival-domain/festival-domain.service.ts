@@ -14,9 +14,8 @@ export class FestivalDomainService {
       regularly(() => this.getFestival(new Date()), [0, 1, 0, 0])
     }
   }
-  private async getFestival(date: Date) {
+  async getFestival(date: Date) {
     this.festivalInfo = await this.festivalService.getFestival(date)
-    console.log(this.festivalInfo)
   }
 
   get festival() {
